@@ -1,0 +1,24 @@
+{
+  "consumer": {
+    "name": "Zoo Consumer"
+  },
+  "provider": {
+    "name": "Zoo Provider"
+  },
+  "messages": [
+    {
+      "description": "an alligator message",
+      "providerState": "there is an alligator named Mary",
+      "content": {
+        "name": "Mary"
+      }
+    },
+    {
+      "description": "an alligator message",
+      "providerState": "there is an alligator named John",
+      "content": {
+        "name": "John"
+      }
+    }
+  ]
+}
