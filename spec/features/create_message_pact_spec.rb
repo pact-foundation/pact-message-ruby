@@ -18,17 +18,22 @@ RSpec.describe "creating a message pact" do
   end
 
   class MessageHandler
+
+    attr_reader :output_stream
+
+    def initialize
+      @output_stream = StringIO.new
+    end
+
     def call(content_string)
       message = OpenStruct.new(JSON.parse(content_string))
-      puts "Hello #{message.name}"
+      output_stream.print "Hello #{message.name}"
     end
   end
 
   let(:message_handler) { MessageHandler.new }
 
   it "allows a consumer to test that it can handle a message example correctly", pact: :message do
-    expect($stdout).to receive(:puts).with("Hello Mary")
-
     alice_provider
       .given("there is an alligator named Mary")
       .description("an alligator message")
@@ -37,11 +42,11 @@ RSpec.describe "creating a message pact" do
     alice_provider.yield_message do | content_string |
       message_handler.call(content_string)
     end
+
+    expect(message_handler.output_stream.string).to eq ("Hello Mary")
   end
 
   it "allows a consumer to test that it can handle another message example correctly", pact: :message do
-    expect($stdout).to receive(:puts).with("Hello John")
-
     alice_provider
       .given("there is an alligator named John")
       .description("an alligator message")
@@ -50,6 +55,8 @@ RSpec.describe "creating a message pact" do
     alice_provider.yield_message do | content_string |
       message_handler.call(content_string)
     end
+
+    expect(message_handler.output_stream.string).to eq ("Hello John")
   end
 
   it "writes the message to a pact file" do

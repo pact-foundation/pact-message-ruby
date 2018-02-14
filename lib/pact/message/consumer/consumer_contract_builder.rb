@@ -1,7 +1,8 @@
 require 'pact/message/consumer/interaction_builder'
 require 'pact/consumer_contract/file_name'
 require 'pact/consumer_contract/pact_file'
-require 'filelock'
+require 'pact/consumer_contract/consumer_contract_writer'
+require 'pact/message/consumer/consumer_contract_decorator'
 
 module Pact
   module Message
@@ -16,12 +17,15 @@ module Pact
           @consumer_contract_details = {
             consumer: {name: attributes[:consumer_name]},
             provider: {name: attributes[:provider_name]},
+            pactfile_write_mode: :update,
+            pact_dir: "./spec/pacts",
+            error_stream: StringIO.new,
+            output_stream: StringIO.new,
+            consumer_contract_decorator_class: Pact::Message::Consumer::ConsumerContractDecorator
+
           }
           @consumer_name = attributes[:consumer_name]
           @provider_name = attributes[:provider_name]
-            # pactfile_write_mode: attributes[:pactfile_write_mode].to_s,
-            # pact_dir: attributes.fetch(:pact_dir)
-
         end
 
         def given(provider_state)
@@ -40,19 +44,22 @@ module Pact
           @content_string = interaction.content.to_s
           @interaction_builder = nil
 
-          FileUtils.mkdir_p(File.dirname(pact_file_path))
-          Filelock pact_file_path do | file |
-            new_contents = pact_json(interaction)
-            file.truncate 0
-            file.write new_contents
-          end
+          details = consumer_contract_details.merge(interactions: [interaction])
+          writer = Pact::ConsumerContractWriter.new(details, Logger.new(StringIO.new))
+          writer.write
 
+          # FileUtils.mkdir_p(File.dirname(pact_file_path))
+          # Filelock pact_file_path do | file |
+          #   new_contents = pact_json(interaction)
+          #   file.truncate 0
+          #   file.write new_contents
+          # end
         end
 
         private
 
         attr_writer :interaction_builder
-        attr_accessor :consumer_name, :provider_name
+        attr_accessor :consumer_name, :provider_name, :consumer_contract_details
 
         def pact_json(interaction)
           contract = read_contract
