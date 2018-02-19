@@ -29,12 +29,12 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency 'filelock', '~> 1.1'
-  spec.add_runtime_dependency "pact-support"
+  spec.add_runtime_dependency "pact-support", "~> 1.2"
   # pact-mock_service dependencies are Pact::ConsumerContractDecorator
   # and Pact::ConsumerContractWriter. Potentially we should extract
   # or duplicate these classes to remove the pact-mock_service dependency.
-  spec.add_runtime_dependency "pact-mock_service"
+  spec.add_runtime_dependency "pact-mock_service", "~> 2.6"
+  spec.add_runtime_dependency "thor", "~> 0.20"
 
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"

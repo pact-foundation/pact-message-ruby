@@ -1,5 +1,4 @@
 require 'pact/reification'
-require 'pact/consumer_contract/message'
 
 module Pact
   module Message
@@ -9,7 +8,7 @@ module Pact
         attr_reader :interaction
 
         def initialize &block
-          @interaction = Pact::ConsumerContract::Message.new
+          @interaction = Pact::Message.new
           @callback = block
         end
 
@@ -24,7 +23,7 @@ module Pact
         end
 
         def content(object)
-          interaction.content = Pact::ConsumerContract::Message::Content.new(object)
+          interaction.content = Pact::Message::Content.new(object)
           @callback.call interaction
           self
         end

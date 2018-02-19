@@ -46,7 +46,7 @@ RSpec.describe "creating a message pact" do
     expect(message_handler.output_stream.string).to eq ("Hello Mary")
   end
 
-  it "allows a consumer to test that it can handle another message example correctly", pact: :message do
+  it "allows a consumer to test that it can handle a second message example correctly", pact: :message do
     alice_provider
       .given("there is an alligator named John")
       .description("an alligator message")
@@ -59,7 +59,7 @@ RSpec.describe "creating a message pact" do
     expect(message_handler.output_stream.string).to eq ("Hello John")
   end
 
-  it "writes the message to a pact file" do
+  it "merges the message into the pact file" do
     pact_hash = JSON.parse(File.read(PACT_FILE_PATH), symbolize_names: true)
     expect(pact_hash[:consumer][:name]).to eq "Zoo Consumer"
     expect(pact_hash[:provider][:name]).to eq "Zoo Provider"

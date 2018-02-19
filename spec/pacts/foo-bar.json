@@ -1,0 +1,21 @@
+{
+  "consumer": {
+    "name": "Foo"
+  },
+  "provider": {
+    "name": "Bar"
+  },
+  "messages": [
+    {
+      "description": null,
+      "content": {
+        "text": "Hello world"
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
