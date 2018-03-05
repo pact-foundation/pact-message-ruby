@@ -12,7 +12,7 @@ module Pact
           @callback = block
         end
 
-        def description description
+        def is_expected_to_send description
           @interaction.description = description
           self
         end
@@ -22,7 +22,12 @@ module Pact
           self
         end
 
-        def content(object)
+        def with_metadata(object)
+          # TODO implement this
+          self
+        end
+
+        def with_content(object)
           interaction.content = Pact::Message::Content.new(object)
           @callback.call interaction
           self

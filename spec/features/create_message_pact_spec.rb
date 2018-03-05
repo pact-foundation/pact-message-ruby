@@ -8,7 +8,7 @@ RSpec.describe "creating a message pact" do
   before(:all) do
     Pact.message_consumer "Zoo Consumer" do
       has_pact_with "Zoo Provider" do
-        builder :alice_provider do
+        builder :alice_producer do
           pact_specification_version '2'
         end
       end
@@ -34,12 +34,13 @@ RSpec.describe "creating a message pact" do
   let(:message_handler) { MessageHandler.new }
 
   it "allows a consumer to test that it can handle a message example correctly", pact: :message do
-    alice_provider
+    alice_producer
       .given("there is an alligator named Mary")
-      .description("an alligator message")
-      .content(name: "Mary")
+      .is_expected_to_send("an alligator message")
+      .with_metadata(type: 'animal')
+      .with_content(name: "Mary")
 
-    alice_provider.yield_message do | content_string |
+    alice_producer.send_message do | content_string |
       message_handler.call(content_string)
     end
 
@@ -47,12 +48,12 @@ RSpec.describe "creating a message pact" do
   end
 
   it "allows a consumer to test that it can handle a second message example correctly", pact: :message do
-    alice_provider
+    alice_producer
       .given("there is an alligator named John")
-      .description("an alligator message")
-      .content(name: "John")
+      .is_expected_to_send("an alligator message")
+      .with_content(name: "John")
 
-    alice_provider.yield_message do | content_string |
+    alice_producer.send_message do | content_string |
       message_handler.call(content_string)
     end
 

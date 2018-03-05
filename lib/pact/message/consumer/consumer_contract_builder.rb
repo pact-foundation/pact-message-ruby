@@ -6,8 +6,6 @@ module Pact
     module Consumer
       class ConsumerContractBuilder
 
-
-
         def initialize(attributes)
           @interaction_builder = nil
           @consumer_name = attributes[:consumer_name]
@@ -18,11 +16,11 @@ module Pact
           interaction_builder.given(provider_state)
         end
 
-        def description(description)
-          interaction_builder.description(provider_state)
+        def is_expected_to_send(description)
+          interaction_builder.is_expected_to_send(provider_state)
         end
 
-        def yield_message
+        def send_message
           # TODO handle matchers
           yield @content_string if block_given?
         end
