@@ -34,7 +34,7 @@ module Pact
           def configure_consumer_contract_builder
             consumer_contract_builder = create_consumer_contract_builder
             create_consumer_contract_builders_method consumer_contract_builder
-            # setup_verification(consumer_contract_builder) if verify
+            setup_verification(consumer_contract_builder)
             consumer_contract_builder
           end
 
@@ -48,11 +48,11 @@ module Pact
             Pact::Message::Consumer::ConsumerContractBuilder.new consumer_contract_builder_fields
           end
 
-          # def setup_verification consumer_contract_builder
-          #   Pact.configuration.add_provider_verification do | example_description |
-          #     consumer_contract_builder.verify example_description
-          #   end
-          # end
+          def setup_verification consumer_contract_builder
+            Pact.configuration.add_message_provider_verification do | example_description |
+              consumer_contract_builder.verify example_description
+            end
+          end
 
           def create_consumer_contract_builders_method consumer_contract_builder
             Pact::Message::Consumer::ConsumerContractBuilders.send(:define_method, @name.to_sym) do

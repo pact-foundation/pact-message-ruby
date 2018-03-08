@@ -10,6 +10,7 @@ module Pact
           @interaction_builder = nil
           @consumer_name = attributes[:consumer_name]
           @provider_name = attributes[:provider_name]
+          @interactions = []
         end
 
         def given(provider_state)
@@ -27,9 +28,15 @@ module Pact
 
         def handle_interaction_fully_defined(interaction)
           @content_string = interaction.content.to_s
+          @interactions << interaction
           @interaction_builder = nil
           # TODO pull these from pact config
           Pact::Message::Consumer::UpdatePact.call(interaction, "./spec/pacts", consumer_name, provider_name, "2.0.0")
+        end
+
+        def verify example_description
+          #
+          # TODO check that message was actually yielded
         end
 
         private

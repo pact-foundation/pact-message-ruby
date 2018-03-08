@@ -7,6 +7,8 @@
 /pkg/
 /spec/reports/
 /tmp/
+spec/pacts/foo_consumer-bar_producer.json
+spec/pacts/zoo_consumer-zoo_provider.json
 
 # rspec failure tracking
 .rspec_status
