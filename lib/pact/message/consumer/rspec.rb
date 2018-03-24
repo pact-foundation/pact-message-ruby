@@ -2,6 +2,7 @@ require 'rspec'
 require 'pact/rspec'
 require 'pact/message/consumer/consumer_contract_builders'
 require 'pact/message/consumer/spec_hooks'
+require 'pact/helpers'
 
 module Pact
   module Message
