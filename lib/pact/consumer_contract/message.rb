@@ -21,8 +21,12 @@ module Pact
           @content = attributes[:content]
         end
 
-        def self.from_hash hash, options
-          content_hash = Pact::MatchingRules.merge(hash['content'], hash['content']['matchingRules'], options)
+        def self.from_hash hash, options = {}
+          opts = options.dup
+          unless opts[:pact_specification_version]
+            opts[:pact_specification_version] = Pact::SpecificationVersion::NIL_VERSION
+          end
+          content_hash = Pact::MatchingRules.merge(hash['content'], hash['content']['matchingRules'], opts)
           content = Pact::ConsumerContract::Message::Content.new(content_hash)
           new(symbolize_keys(hash).merge(content: content))
         end

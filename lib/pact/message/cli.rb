@@ -13,7 +13,8 @@ module Pact
       def update(message)
         require 'pact/message'
         require 'pact/message/consumer/update_pact'
-        message = Pact::Message.from_hash(JSON.parse(message))
+        pact_specification_version = Pact::SpecificationVersion.new(options.pact_specification_version)
+        message = Pact::Message.from_hash(JSON.parse(message), { pact_specification_version: pact_specification_version })
         Pact::Message::Consumer::UpdatePact.call(message, options.pact_dir, options.consumer, options.provider, options.pact_specification_version)
       end
     end

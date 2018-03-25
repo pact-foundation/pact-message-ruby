@@ -1,7 +1,6 @@
 require 'fileutils'
 
 RSpec.describe "the CLI" do
-
   CLI_SPEC_PACT_FILE_PATH = "./tmp/foo-bar.json"
 
   before do
