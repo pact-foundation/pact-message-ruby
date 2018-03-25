@@ -5,6 +5,11 @@ module Pact
         include ActiveSupportSupport
         include SymbolizeKeys
 
+        # Could technically be an array
+        def self.from_hash content, options = {}
+          new(content)
+        end
+
         def initialize content
           @content = content
         end
