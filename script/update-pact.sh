@@ -1,4 +1,4 @@
-{
+bundle exec bin/pact-message update '{
   "description": "a test mesage",
   "content": {
     "name": {
@@ -7,3 +7,4 @@
     }
   }
 }
+' --consumer Foo --provider Bar --pact-dir ./tmp --pact-specification-version 3.0.0

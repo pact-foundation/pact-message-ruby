@@ -8,16 +8,32 @@
   "messages": [
     {
       "description": "an alligator message",
-      "providerState": "there is an alligator named Mary",
+      "providerStates": [
+        {
+          "name": "there is an alligator named Mary"
+        }
+      ],
       "content": {
         "name": "Mary"
+      },
+      "matchingRules": {
+        "body": {
+        }
       }
     },
     {
       "description": "an alligator message",
-      "providerState": "there is an alligator named John",
+      "providerStates": [
+        {
+          "name": "there is an alligator named John"
+        }
+      ],
       "content": {
         "name": "John"
+      },
+      "matchingRules": {
+        "body": {
+        }
       }
     }
   ],

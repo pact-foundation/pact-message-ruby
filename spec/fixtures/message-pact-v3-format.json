@@ -1,0 +1,20 @@
+{
+  "consumer": {
+    "name": "Bob"
+  },
+  "messages": [
+    {
+      "content": {
+        "foo": "bar"
+      },
+      "providerStates": [
+        {
+          "name": "an alligator named Mary exists"
+        }
+      ]
+    }
+  ],
+  "provider": {
+    "name": "Mary"
+  }
+}

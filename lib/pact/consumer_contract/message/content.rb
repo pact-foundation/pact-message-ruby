@@ -22,6 +22,10 @@ module Pact
           end
         end
 
+        def content
+          @content
+        end
+
         def as_json
           @content
         end

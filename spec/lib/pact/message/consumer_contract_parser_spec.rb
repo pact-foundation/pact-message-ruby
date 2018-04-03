@@ -7,7 +7,7 @@ module Pact
       let(:loaded_pact) { ConsumerContract.from_json(string) }
 
       context "with a Message contract" do
-        let(:string) { '{"messages":[{"content": {"foo": "bar"}}],  "consumer": {"name" : "Bob"} , "provider": {"name" : "Mary"}}' }
+        let(:string) { File.read('spec/fixtures/message-pact-v3-format.json') }
 
         it "should create a Pact" do
           expect(loaded_pact).to be_instance_of ConsumerContract
