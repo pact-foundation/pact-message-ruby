@@ -1,3 +1,12 @@
+<a name="v0.3.0"></a>
+### v0.3.0 (2018-04-03)
+
+
+#### Features
+
+* add pact-message reify to cli	 ([782a09b](/../../commit/782a09b))
+
+
 <a name="v0.1.5"></a>
 ### v0.1.5 (2018-03-26)
 
