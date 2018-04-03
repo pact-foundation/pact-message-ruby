@@ -1,3 +1,12 @@
+<a name="v0.4.0"></a>
+### v0.4.0 (2018-04-03)
+
+
+#### Features
+
+* add *partial* support for reading/writing array of provider states as specified in v3 spec	 ([e9ec6c3](/../../commit/e9ec6c3))
+
+
 <a name="v0.3.0"></a>
 ### v0.3.0 (2018-04-03)
 
