@@ -17,6 +17,12 @@ module Pact
         message = Pact::Message.from_hash(JSON.parse(message), { pact_specification_version: pact_specification_version })
         Pact::Message::Consumer::UpdatePact.call(message, options.pact_dir, options.consumer, options.provider, options.pact_specification_version)
       end
+
+      desc 'reify', "Take a JSON document with embedded pact matchers and return a concrete example"
+      def reify(json)
+        require 'pact/support'
+        puts Pact::Reification.from_term(JSON.load(json)).to_json
+      end
     end
   end
 end
