@@ -1,5 +1,10 @@
 bundle exec bin/pact-message update '{
   "description": "a test mesage",
+  "providerStates": [
+    {
+      "name": "an alligator named Mary exists"
+    }
+  ],
   "content": {
     "name": {
       "contents": "Mary",
