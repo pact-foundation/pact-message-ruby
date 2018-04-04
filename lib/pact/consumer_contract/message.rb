@@ -13,12 +13,13 @@ module Pact
       include Pact::ActiveSupportSupport
       include Pact::SymbolizeKeys
 
-        attr_accessor :description, :content, :provider_state
+        attr_accessor :description, :content, :provider_state, :metadata
 
         def initialize attributes = {}
           @description = attributes[:description]
           @provider_state = attributes[:provider_state] || attributes[:providerState]
           @content = attributes[:content]
+          @metadata = attributes[:metadata]
         end
 
         def self.from_hash hash, options = {}
@@ -28,26 +29,19 @@ module Pact
           end
           content_hash = Pact::MatchingRules.merge(hash['content'], hash['content']['matchingRules'], opts)
           content = Pact::ConsumerContract::Message::Content.from_hash(content_hash)
+          metadata = hash['metaData']
           provider_state = hash['providerStates'] && hash['providerStates'].first && hash['providerStates'].first['name']
           warn_if_multiple_provider_states(provider_state, hash)
           warn_if_params_used_in_provider_states(hash)
-          new(symbolize_keys(hash).merge(content: content, provider_state: provider_state))
+          new(symbolize_keys(hash).merge(content: content, provider_state: provider_state, metadata: metadata))
         end
 
         def to_hash
           {
             description: description,
-            provider_state: provider_state,
+            provider_states: [{ name: provider_state }],
             content: content.to_hash,
-          }
-        end
-
-        # todo move this proper decorator
-        def as_json
-          {
-            description: description,
-            providerState: provider_state,
-            content: content.as_json
+            metadata: metadata
           }
         end
 
@@ -56,11 +50,12 @@ module Pact
             path: '/',
             method: 'POST',
             query: nil,
-            headers: {'Content-Type' => 'application/json'},
+            headers: { 'Content-Type' => 'application/json' },
             body: {
               description: description,
               providerStates: [{
-                name: provider_state
+                name: provider_state,
+                params: {}
               }]
             }
           )

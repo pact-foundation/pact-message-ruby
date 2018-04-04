@@ -13,6 +13,10 @@ module Pact
           expect(subject.provider_state).to eq "an alligator named Mary exists"
         end
 
+        it "sets the metadata" do
+          expect(subject.metadata).to eq "Content-Type" => "application/json"
+        end
+
         context "when there is an empty array of provider states" do
           before do
             message_hash['providerStates'] = []

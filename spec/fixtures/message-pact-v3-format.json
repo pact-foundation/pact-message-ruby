@@ -7,6 +7,9 @@
       "content": {
         "foo": "bar"
       },
+      "metaData": {
+        "Content-Type": "application/json"
+      },
       "providerStates": [
         {
           "name": "an alligator named Mary exists"
