@@ -27,7 +27,8 @@ module Pact
           unless opts[:pact_specification_version]
             opts[:pact_specification_version] = Pact::SpecificationVersion::NIL_VERSION
           end
-          content_hash = Pact::MatchingRules.merge(hash['content'], hash['content']['matchingRules'], opts)
+          content_matching_rules = hash['matchingRules'] && hash['matchingRules']['body']
+          content_hash = Pact::MatchingRules.merge(hash['content'], content_matching_rules, opts)
           content = Pact::ConsumerContract::Message::Content.from_hash(content_hash)
           metadata = hash['metaData']
           provider_state = hash['providerStates'] && hash['providerStates'].first && hash['providerStates'].first['name']

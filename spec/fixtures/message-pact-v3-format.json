@@ -14,7 +14,18 @@
         {
           "name": "an alligator named Mary exists"
         }
-      ]
+      ],
+      "matchingRules": {
+        "body": {
+          "$.foo": {
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ]
+          }
+        }
+      }
     }
   ],
   "provider": {

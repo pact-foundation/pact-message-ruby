@@ -6,8 +6,9 @@ module Pact
       describe ".from_hash" do
         let(:contract_hash) { JSON.parse(File.read('spec/fixtures/message-pact-v3-format.json')) }
         let(:message_hash) { contract_hash['messages'].first  }
+        let(:options) { { pact_specification_version: Pact::SpecificationVersion.new('3.0.0') } }
 
-        subject { Message.from_hash(message_hash) }
+        subject { Message.from_hash(message_hash, options) }
 
         it "sets the provider state to the first provider state in the array" do
           expect(subject.provider_state).to eq "an alligator named Mary exists"
@@ -15,6 +16,12 @@ module Pact
 
         it "sets the metadata" do
           expect(subject.metadata).to eq "Content-Type" => "application/json"
+        end
+
+        context "when there are matching rules" do
+          it "correctly locates and parses them" do
+            expect(subject.content.content["foo"]).to be_a Pact::SomethingLike
+          end
         end
 
         context "when there is an empty array of provider states" do
