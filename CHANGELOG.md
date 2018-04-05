@@ -1,3 +1,17 @@
+<a name="v0.4.1"></a>
+### v0.4.1 (2018-04-05)
+
+
+#### Features
+
+* read/write metaData from/to v3 pact files	 ([7dfcbb9](/../../commit/7dfcbb9))
+
+
+#### Bug Fixes
+
+* locate content matching rules from correct path	 ([5254c01](/../../commit/5254c01))
+
+
 <a name="v0.4.0"></a>
 ### v0.4.0 (2018-04-03)
 
