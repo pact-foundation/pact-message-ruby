@@ -28,7 +28,7 @@ module Pact
         end
 
         def with_content(object)
-          interaction.content = Pact::Message::Content.from_hash(object)
+          interaction.contents = Pact::Message::Contents.from_hash(object)
           @callback.call interaction
           self
         end

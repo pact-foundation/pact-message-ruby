@@ -4,7 +4,7 @@
   },
   "messages": [
     {
-      "content": {
+      "contents": {
         "foo": "bar"
       },
       "metaData": {
