@@ -23,11 +23,11 @@ module Pact
 
         def send_message
           # TODO handle matchers
-          yield @content_string if block_given?
+          yield @contents_string if block_given?
         end
 
         def handle_interaction_fully_defined(interaction)
-          @content_string = interaction.content.to_s
+          @contents_string = interaction.contents.to_s
           @interactions << interaction
           @interaction_builder = nil
           # TODO pull these from pact config

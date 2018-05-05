@@ -20,7 +20,7 @@ module Pact
 
         context "when there are matching rules" do
           it "correctly locates and parses them" do
-            expect(subject.content.content["foo"]).to be_a Pact::SomethingLike
+            expect(subject.contents.contents["foo"]).to be_a Pact::SomethingLike
           end
         end
 

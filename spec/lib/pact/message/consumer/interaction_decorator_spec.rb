@@ -9,10 +9,10 @@ module Pact
             double('Pact::ConsumerContract::Message',
               description: 'description',
               provider_state: 'provider state',
-              content: double('Pact::ConsumerContract::Message::Content', content: content_object)
+              contents: double('Pact::ConsumerContract::Message::Contents', contents: contents_object)
               )
           end
-          let(:content_object) do
+          let(:contents_object) do
             { 'foo' => Pact.like('bar') }
           end
           let(:options) { { pact_specification_version: "3.0.0" } }
@@ -23,7 +23,7 @@ module Pact
             {
               description: 'description',
               providerStates: [ { name: 'provider state' } ],
-              content: {
+              contents: {
                 'foo' => 'bar'
               },
               matchingRules: {

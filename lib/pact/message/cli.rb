@@ -23,6 +23,11 @@ module Pact
         require 'pact/support'
         puts Pact::Reification.from_term(JSON.load(json)).to_json
       end
+
+      def version
+        require 'pact/message/version.rb'
+        puts Pact::Message::VERSION
+      end
     end
   end
 end

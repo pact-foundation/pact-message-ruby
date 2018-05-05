@@ -13,7 +13,7 @@
           "name": "there is an alligator named Mary"
         }
       ],
-      "content": {
+      "contents": {
         "name": "Mary"
       },
       "matchingRules": {
@@ -28,7 +28,7 @@
           "name": "there is an alligator named John"
         }
       ],
-      "content": {
+      "contents": {
         "name": "John"
       },
       "matchingRules": {

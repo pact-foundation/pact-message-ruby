@@ -1,11 +1,11 @@
-require 'pact/consumer_contract/message/content'
+require 'pact/consumer_contract/message/contents'
 require 'pact/symbolize_keys'
 require 'pact/shared/active_support_support'
 require 'pact/matching_rules'
 require 'pact/errors'
 require 'pact/consumer/request'
 require 'pact/consumer_contract/response'
-require 'pact/consumer_contract/message/content'
+require 'pact/consumer_contract/message/contents'
 
 module Pact
   class ConsumerContract
@@ -13,12 +13,12 @@ module Pact
       include Pact::ActiveSupportSupport
       include Pact::SymbolizeKeys
 
-        attr_accessor :description, :content, :provider_state, :metadata
+        attr_accessor :description, :contents, :provider_state, :metadata
 
         def initialize attributes = {}
           @description = attributes[:description]
           @provider_state = attributes[:provider_state] || attributes[:providerState]
-          @content = attributes[:content]
+          @contents = attributes[:contents]
           @metadata = attributes[:metadata]
         end
 
@@ -27,21 +27,21 @@ module Pact
           unless opts[:pact_specification_version]
             opts[:pact_specification_version] = Pact::SpecificationVersion::NIL_VERSION
           end
-          content_matching_rules = hash['matchingRules'] && hash['matchingRules']['body']
-          content_hash = Pact::MatchingRules.merge(hash['content'], content_matching_rules, opts)
-          content = Pact::ConsumerContract::Message::Content.from_hash(content_hash)
+          contents_matching_rules = hash['matchingRules'] && hash['matchingRules']['body']
+          contents_hash = Pact::MatchingRules.merge(hash['contents'], contents_matching_rules, opts)
+          contents = Pact::ConsumerContract::Message::Contents.from_hash(contents_hash)
           metadata = hash['metaData']
           provider_state = hash['providerStates'] && hash['providerStates'].first && hash['providerStates'].first['name']
           warn_if_multiple_provider_states(provider_state, hash)
           warn_if_params_used_in_provider_states(hash)
-          new(symbolize_keys(hash).merge(content: content, provider_state: provider_state, metadata: metadata))
+          new(symbolize_keys(hash).merge(contents: contents, provider_state: provider_state, metadata: metadata))
         end
 
         def to_hash
           {
             description: description,
             provider_states: [{ name: provider_state }],
-            content: content.to_hash,
+            contents: contents.to_hash,
             metadata: metadata
           }
         end
@@ -68,7 +68,7 @@ module Pact
             status: 200,
             headers: {'Content-Type' => 'application/json'},
             body: {
-              content: content
+              contents: contents
             }
           )
         end
@@ -82,7 +82,7 @@ module Pact
         end
 
         def validate!
-          raise Pact::InvalidMessageError.new(self) unless description && content
+          raise Pact::InvalidMessageError.new(self) unless description && contents
         end
 
         def == other

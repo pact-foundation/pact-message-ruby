@@ -1,6 +1,6 @@
 {
   "description": "a test mesage",
-  "content": {
+  "contents": {
     "name": {
       "contents": "Mary",
       "json_class": "Pact::SomethingLike"

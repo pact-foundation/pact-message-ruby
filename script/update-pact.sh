@@ -5,7 +5,7 @@ bundle exec bin/pact-message update '{
       "name": "an alligator named Mary exists"
     }
   ],
-  "content": {
+  "contents": {
     "name": {
       "contents": "Mary",
       "json_class": "Pact::SomethingLike"

@@ -15,7 +15,7 @@ module Pact
         def as_json options = {}
           hash = { :description => message.description }
           hash[:providerStates] = provider_states if message.provider_state
-          hash[:content] = extract_content
+          hash[:contents] = extract_contents
           hash[:matchingRules] = extract_matching_rules
           fix_all_the_things hash
         end
@@ -28,12 +28,12 @@ module Pact
 
         attr_reader :message
 
-        def decorate_content
-          message.content.as_json
+        def decorate_contents
+          message.contents.as_json
         end
 
-        def extract_content
-          Pact::Reification.from_term(message.content.content)
+        def extract_contents
+          Pact::Reification.from_term(message.contents.contents)
         end
 
         def provider_states
@@ -42,7 +42,7 @@ module Pact
 
         def extract_matching_rules
           {
-            body: Pact::MatchingRules.extract(message.content.content, pact_specification_version: pact_specification_version)
+            body: Pact::MatchingRules.extract(message.contents.contents, pact_specification_version: pact_specification_version)
           }
         end
 

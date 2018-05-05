@@ -1,6 +1,6 @@
 require 'pact/consumer_contract'
 require 'pact/consumer_contract/message'
-require 'pact/consumer_contract/message/content'
+require 'pact/consumer_contract/message/contents'
 
 module Pact
   module Message
