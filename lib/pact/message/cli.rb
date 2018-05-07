@@ -24,6 +24,7 @@ module Pact
         puts Pact::Reification.from_term(JSON.load(json)).to_json
       end
 
+      desc 'version', "Show the pact-message gem version"
       def version
         require 'pact/message/version.rb'
         puts Pact::Message::VERSION
