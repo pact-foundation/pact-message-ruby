@@ -1,3 +1,19 @@
+<a name="v0.4.3"></a>
+### v0.4.3 (2018-05-06)
+
+
+#### Features
+
+* **version**
+  * add version command to CLI, fixes #10	 ([f928248](/../../commit/f928248))
+
+
+#### Bug Fixes
+
+* **content**
+  * rename message content -> contents. fixes #9	 ([0908962](/../../commit/0908962))
+
+
 <a name="v0.4.1"></a>
 ### v0.4.1 (2018-04-05)
 
