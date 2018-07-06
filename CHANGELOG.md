@@ -1,3 +1,12 @@
+<a name="v0.4.5"></a>
+### v0.4.5 (2018-07-07)
+
+
+#### Bug Fixes
+
+* include metaData in message pact	 ([e68ca4f](/../../commit/e68ca4f))
+
+
 <a name="v0.4.3"></a>
 ### v0.4.3 (2018-05-06)
 
