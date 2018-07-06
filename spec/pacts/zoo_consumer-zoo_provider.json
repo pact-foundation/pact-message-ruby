@@ -19,6 +19,8 @@
       "matchingRules": {
         "body": {
         }
+      },
+      "metaData": {
       }
     },
     {
@@ -34,6 +36,8 @@
       "matchingRules": {
         "body": {
         }
+      },
+      "metaData": {
       }
     }
   ],
