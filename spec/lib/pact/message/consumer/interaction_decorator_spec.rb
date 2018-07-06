@@ -9,7 +9,8 @@ module Pact
             double('Pact::ConsumerContract::Message',
               description: 'description',
               provider_state: 'provider state',
-              contents: double('Pact::ConsumerContract::Message::Contents', contents: contents_object)
+              contents: double('Pact::ConsumerContract::Message::Contents', contents: contents_object),
+              metadata: { content_type: 'foo/bar' }
               )
           end
           let(:contents_object) do
@@ -25,6 +26,9 @@ module Pact
               providerStates: [ { name: 'provider state' } ],
               contents: {
                 'foo' => 'bar'
+              },
+              metaData: {
+                content_type: 'foo/bar'
               },
               matchingRules: {
                 body: {

@@ -17,6 +17,7 @@ module Pact
           hash[:providerStates] = provider_states if message.provider_state
           hash[:contents] = extract_contents
           hash[:matchingRules] = extract_matching_rules
+          hash[:metaData] = message.metadata || {}
           fix_all_the_things hash
         end
 
