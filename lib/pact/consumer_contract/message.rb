@@ -30,7 +30,7 @@ module Pact
           contents_matching_rules = hash['matchingRules'] && hash['matchingRules']['body']
           contents_hash = Pact::MatchingRules.merge(hash['contents'], contents_matching_rules, opts)
           contents = Pact::ConsumerContract::Message::Contents.from_hash(contents_hash)
-          metadata = hash['metaData']
+          metadata = hash['metaData'] || hash['metadata']
           provider_state = hash['providerStates'] && hash['providerStates'].first && hash['providerStates'].first['name']
           warn_if_multiple_provider_states(provider_state, hash)
           warn_if_params_used_in_provider_states(hash)

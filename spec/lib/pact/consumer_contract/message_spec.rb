@@ -18,6 +18,16 @@ module Pact
           expect(subject.metadata).to eq "Content-Type" => "application/json"
         end
 
+        context "when the message has a sensibly named metadata instead of metaData (what on earth, Ron?)" do
+          before do
+            message_hash['metadata'] = message_hash.delete('metaData')
+          end
+
+          it "sets the metadata" do
+            expect(subject.metadata).to eq "Content-Type" => "application/json"
+          end
+        end
+
         context "when there are matching rules" do
           it "correctly locates and parses them" do
             expect(subject.contents.contents["foo"]).to be_a Pact::SomethingLike
