@@ -13,11 +13,12 @@ module Pact
       include Pact::ActiveSupportSupport
       include Pact::SymbolizeKeys
 
-        attr_accessor :description, :contents, :provider_state, :metadata
+        attr_accessor :description, :contents, :provider_state, :provider_states, :metadata
 
         def initialize attributes = {}
           @description = attributes[:description]
           @provider_state = attributes[:provider_state] || attributes[:providerState]
+          @provider_states = attributes[:provider_states] || []
           @contents = attributes[:contents]
           @metadata = attributes[:metadata]
         end
@@ -32,9 +33,12 @@ module Pact
           contents = Pact::ConsumerContract::Message::Contents.from_hash(contents_hash)
           metadata = hash['metaData'] || hash['metadata']
           provider_state = hash['providerStates'] && hash['providerStates'].first && hash['providerStates'].first['name']
-          warn_if_multiple_provider_states(provider_state, hash)
-          warn_if_params_used_in_provider_states(hash)
-          new(symbolize_keys(hash).merge(contents: contents, provider_state: provider_state, metadata: metadata))
+          provider_states = parse_provider_states(hash['providerStates'])
+          new(symbolize_keys(hash).merge(
+            contents: contents,
+            provider_state: provider_state,
+            provider_states: provider_states,
+            metadata: metadata))
         end
 
         def to_hash
@@ -116,19 +120,9 @@ module Pact
 
         private
 
-        def self.warn_if_multiple_provider_states(provider_state, hash)
-          if hash['providerStates'] && hash['providerStates'].size > 1
-            ignored_list = hash['providerStates'].collect{ |provider_state| "\"#{provider_state['name']}\"" }[1..-1].join(", ")
-            Pact.configuration.error_stream.puts("WARN: Using only the first provider state, \"#{provider_state}\", as support for multiple provider states is not yet implemented. Ignoring provider states: #{ignored_list}")
-          end
-        end
-
-        def self.warn_if_params_used_in_provider_states(hash)
-          return unless hash['providerStates']
-          provider_states_with_params = hash['providerStates'].select{ | provider_state | provider_state.fetch('params', {}).any? }
-          if provider_states_with_params.any?
-            ignored_list = provider_states_with_params.collect{ |provider_state| "\"#{provider_state['name']}\"" }.join(", ")
-            Pact.configuration.error_stream.puts("WARN: Ignoring params for the following provider states as params support is not yet implemented: #{ignored_list}")
+        def self.parse_provider_states provider_states
+          (provider_states || []).collect do | provider_state_hash |
+            Pact::ProviderState.new(provider_state_hash['name'], provider_state_hash['params'])
           end
         end
     end

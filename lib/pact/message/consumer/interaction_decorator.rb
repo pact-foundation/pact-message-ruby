@@ -14,7 +14,7 @@ module Pact
 
         def as_json options = {}
           hash = { :description => message.description }
-          hash[:providerStates] = provider_states if message.provider_state
+          hash[:providerStates] = provider_states
           hash[:contents] = extract_contents
           hash[:matchingRules] = extract_matching_rules
           hash[:metaData] = message.metadata || {}
@@ -38,7 +38,7 @@ module Pact
         end
 
         def provider_states
-          [{ name: message.provider_state }]
+          message.provider_states.collect(&:as_json)
         end
 
         def extract_matching_rules

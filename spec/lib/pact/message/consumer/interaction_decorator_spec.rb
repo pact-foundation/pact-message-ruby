@@ -8,7 +8,7 @@ module Pact
           let(:message) do
             double('Pact::ConsumerContract::Message',
               description: 'description',
-              provider_state: 'provider state',
+              provider_states: [double('Pact::ProviderState', as_json: provider_state_json)],
               contents: double('Pact::ConsumerContract::Message::Contents', contents: contents_object),
               metadata: { content_type: 'foo/bar' }
               )
@@ -16,6 +16,7 @@ module Pact
           let(:contents_object) do
             { 'foo' => Pact.like('bar') }
           end
+          let(:provider_state_json) { { name: 'provider state'} }
           let(:options) { { pact_specification_version: "3.0.0" } }
 
           subject { InteractionDecorator.new(message, options).as_json }

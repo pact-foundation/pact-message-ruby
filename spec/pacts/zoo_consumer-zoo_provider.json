@@ -9,9 +9,7 @@
     {
       "description": "an alligator message",
       "providerStates": [
-        {
-          "name": "there is an alligator named Mary"
-        }
+
       ],
       "contents": {
         "name": "Mary"
@@ -26,9 +24,7 @@
     {
       "description": "an alligator message",
       "providerStates": [
-        {
-          "name": "there is an alligator named John"
-        }
+
       ],
       "contents": {
         "name": "John"
