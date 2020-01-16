@@ -38,6 +38,7 @@ module Pact
           before do
             message_hash['providerStates'] = []
           end
+
           it "sets the provider state to nil" do
             expect(subject.provider_state).to be nil
           end
@@ -59,6 +60,21 @@ module Pact
           it "sets the name and params on each provider state" do
             expect(subject.provider_states.last.name).to eq 'another state'
             expect(subject.provider_states.last.params).to eq 'foo' => 'bar'
+          end
+        end
+
+        context "when there is a providerState instead of providerStates" do
+          before do
+            message_hash['providerState'] = message_hash['providerStates'].first['name']
+            message_hash.delete('providerStates')
+          end
+
+          it "sets the provider_state string" do
+            expect(subject.provider_state).to eq "an alligator named Mary exists"
+          end
+
+          it "sets the provider_states array to a single item" do
+            expect(subject.provider_states.first.name).to eq "an alligator named Mary exists"
           end
         end
       end

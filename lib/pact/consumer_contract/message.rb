@@ -32,11 +32,12 @@ module Pact
           contents_hash = Pact::MatchingRules.merge(hash['contents'], contents_matching_rules, opts)
           contents = Pact::ConsumerContract::Message::Contents.from_hash(contents_hash)
           metadata = hash['metaData'] || hash['metadata']
-          provider_state = hash['providerStates'] && hash['providerStates'].first && hash['providerStates'].first['name']
-          provider_states = parse_provider_states(hash['providerStates'])
+
+          provider_state_name = parse_provider_state_name(hash['providerState'], hash['providerStates'])
+          provider_states = parse_provider_states(provider_state_name, hash['providerStates'])
           new(symbolize_keys(hash).merge(
             contents: contents,
-            provider_state: provider_state,
+            provider_state: provider_state_name,
             provider_states: provider_states,
             metadata: metadata))
         end
@@ -120,9 +121,19 @@ module Pact
 
         private
 
-        def self.parse_provider_states provider_states
-          (provider_states || []).collect do | provider_state_hash |
-            Pact::ProviderState.new(provider_state_hash['name'], provider_state_hash['params'])
+        def self.parse_provider_state_name provider_state, provider_states
+          (provider_states && provider_states.first && provider_states.first['name']) || provider_state
+        end
+
+        def self.parse_provider_states provider_state_name, provider_states
+          if provider_states && provider_states.any?
+            provider_states.collect do | provider_state_hash |
+              Pact::ProviderState.new(provider_state_hash['name'], provider_state_hash['params'])
+            end
+          elsif provider_state_name
+            [Pact::ProviderState.new(provider_state_name, {})]
+          else
+            []
           end
         end
     end
