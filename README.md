@@ -4,13 +4,14 @@
 
 Create and verify consumer driven contracts for messages.
 
-This project is still under development and is not ready for production use.
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
+gem 'pact'
 gem 'pact-message'
 ```
 
@@ -20,11 +21,61 @@ And then execute:
 
 Or install it yourself as:
 
+    $ gem install pact
     $ gem install pact-message
 
 ## Usage
 
+The key to using Message Pact is to completely separate the business logic that creates the message from the transmission protocol (eg. Kafka, Websockets, Lambda). This allows you to write a contract for the message contents, no matter how it is communicated.
 
+### Consumer
+
+Not finished yet as nobody has asked for it. Ping @Beth Skurrie on slack.pact.io if you'd like use this.
+
+### Provider
+
+Also called a "producer". Message pact verification follows all the same principles as HTTP pact verification, except that instead of verifying that a provider can make the expected HTTP response, we are verifying that the provider can create the expected message. Please read the HTTP Pact [verification](https://github.com/pact-foundation/pact-ruby/wiki/Verifying-pacts) documentation. The only difference is in the configuration block. Use `message_provider` instead of `service_provider`, and configure a `builder` block that takes a `|description|` argument, instead of a Rack `app` block.
+
+Make sure you've required 'pact/message' as well as 'pact'.
+
+```ruby
+require 'pact'
+require 'pact/message'
+
+Pact.message_provider "SomeProvider" do
+  builder do |description|
+    #... code that returns the correct message based on the description goes here
+  do
+end
+
+```
+
+How you map between the message description and the code that creates the message is up to you. The easiest way is something like this:
+
+```ruby
+class MyMessageProvider
+  def create_hello_message
+    {
+      text: "Hello world"
+    }
+  end
+end
+
+CONFIG = {
+  "a hello message" => lambda { MyMessageProvider.new.create_hello_message }
+}
+
+Pact.message_provider "SomeProvider" do
+  builder do |description|
+    CONFIG[description].call
+  do
+end
+
+```
+
+#### Provider states
+
+Provider states work the same way for Message Pact as they do for HTTP Pact. Please read the [provider state](https://github.com/pact-foundation/pact-ruby#using-provider-states) docs in the HTTP Pact project.
 
 ## Development
 
