@@ -2,7 +2,11 @@ sudo: false
 language: ruby
 rvm:
   - 2.4.1
-before_install: gem install bundler -v 1.15.4
+before_install:
+  - rvm use @global
+  - gem uninstall bundler -x || gem uninstall bundler -a || true
+  - gem install bundler -v 1.17.3
+  - bundler --version
 notifications:
   webhooks:
     urls:
