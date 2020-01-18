@@ -42,10 +42,24 @@ Make sure you've required 'pact/message' as well as 'pact'.
 require 'pact'
 require 'pact/message'
 
-Pact.message_provider "SomeProvider" do
+Pact.message_provider "MyMessageProvider" do
   builder do |description|
     #... code that returns the correct message based on the description goes here
   do
+  
+  honours_pact_with "MyMessageConsumer" do
+    pact_uri "/path/or/url/to/your/pact", { 
+                          username: "optional username", 
+                          password: "optional password", 
+                          token: "optional token"
+                        }
+  end
+  
+  # or
+  
+  honours_pacts_from_pact_broker do
+    # See docs at https://github.com/pact-foundation/pact-ruby/wiki/Verifying-pacts
+  end
 end
 
 ```
