@@ -11,7 +11,9 @@ module Pact
       def call(hash)
         hash = symbolize_keys(hash)
         options = { pact_specification_version: pact_specification_version(hash) }
-        interactions = hash[:messages].collect { |hash| Pact::ConsumerContract::Message.from_hash(hash, options)}
+        interactions = hash[:messages].each_with_index.collect do |hash, index|
+          Pact::ConsumerContract::Message.from_hash({ index: index }.merge(hash), options)
+        end
         ConsumerContract.new(
           :consumer => ServiceConsumer.from_hash(hash[:consumer]),
           :provider => ServiceProvider.from_hash(hash[:provider]),

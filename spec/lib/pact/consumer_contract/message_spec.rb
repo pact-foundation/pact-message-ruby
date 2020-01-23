@@ -18,6 +18,10 @@ module Pact
           expect(subject.metadata).to eq "Content-Type" => "application/json"
         end
 
+        it "sets the _id" do
+          expect(subject._id).to eq "1234"
+        end
+
         context "when the message has a sensibly named metadata instead of metaData (what on earth, Ron?)" do
           before do
             message_hash['metadata'] = message_hash.delete('metaData')
