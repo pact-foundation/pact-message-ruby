@@ -23,4 +23,4 @@ TAG="v${VERSION}"
 git tag -a "${TAG}" -m "Releasing version ${TAG}"
 git push origin "${TAG}"
 git push origin master
-echo "Releasing from https://hub.docker.com/repository/docker/pactfoundation/pact-message-ruby/builds"
+echo "Releasing from https://travis-ci.org/pact-foundation/pact-message-ruby/builds"
