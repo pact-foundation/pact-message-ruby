@@ -10,6 +10,19 @@ before_install:
 script:
   - rvm use @global
   - bundle exec rake
+jobs:
+  include:
+    - stage: gem release
+      rvm: 2.2.4
+      script: echo "Deploying to rubygems.org ..."
+      deploy:
+        provider: rubygems
+        api_key:
+          secure: AzTHDbKRr1ZO4E2mRyvU054Tx8c2cZbKkoDBZjSAQ2CY3E7oH137NTAIGd4BthH/E9mbEXtGpZIDfWPbaOcUJQ5Bz24CWTKmGyic6FrPhJnOW5CKVSLGCDPzpmqHULv/GTN16YN0Dh1HLeGYZzlHlxT0+4AVvbvBAleHrAFeJs8=
+        gem: pact
+        on:
+          tags: true
+          repo: pact-foundation/pact-message-ruby
 notifications:
   webhooks:
     urls:
