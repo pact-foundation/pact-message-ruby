@@ -16,6 +16,9 @@ VERSION=$(gem_version)
 TAG=$VERSION script/release/generate-changelog.sh
 
 git add CHANGELOG.md lib/pact/message/version.rb
-git commit -m "chore(release): version ${VERSION}"
+git commit -m "chore(release): version ${VERSION}
+
+[ci-skip]"
 # bundle exec rake tag_for_release # TODO move release to travis
-bundle exec rake release
+docker_build_bundle_base
+on_docker "bundle exec rake release"
