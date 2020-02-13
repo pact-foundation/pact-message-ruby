@@ -19,7 +19,7 @@ jobs:
         provider: rubygems
         api_key:
           secure: AzTHDbKRr1ZO4E2mRyvU054Tx8c2cZbKkoDBZjSAQ2CY3E7oH137NTAIGd4BthH/E9mbEXtGpZIDfWPbaOcUJQ5Bz24CWTKmGyic6FrPhJnOW5CKVSLGCDPzpmqHULv/GTN16YN0Dh1HLeGYZzlHlxT0+4AVvbvBAleHrAFeJs8=
-        gem: pact
+        gem: pact-message
         on:
           tags: true
           repo: pact-foundation/pact-message-ruby
