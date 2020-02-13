@@ -64,7 +64,8 @@ module Pact
               providerStates: [{
                 name: provider_state,
                 params: {}
-              }]
+              }],
+              metadata: metadata
             }
           )
         end
