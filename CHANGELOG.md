@@ -1,3 +1,18 @@
+<a name="v0.7.0"></a>
+### v0.7.0 (2020-02-10)
+
+
+#### Features
+
+* Add metadata to a message request	 ([796590f](/../../commit/796590f))
+* support the _id attribute from the Pact Broker, and give each message an index	 ([3a05501](/../../commit/3a05501))
+
+
+#### Bug Fixes
+
+* add back support for using providerState instead of providerStates when updating a pact	 ([b494a76](/../../commit/b494a76))
+
+
 <a name="v0.6.0"></a>
 ### v0.6.0 (2020-02-10)
 
