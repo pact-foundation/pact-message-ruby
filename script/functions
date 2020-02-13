@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+gem_version() {
+  on_docker "bundle exec ruby -e \"require 'bump'; puts Bump::Bump.current\""
+}

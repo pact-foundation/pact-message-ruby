@@ -1,0 +1,15 @@
+FROM ruby:2.2.4-alpine
+
+# Installation path
+ENV HOME=/app
+WORKDIR $HOME
+
+RUN set -ex && \
+  adduser -h $HOME -s /bin/false -D -S -G root ruby && \
+  chmod g+w $HOME && \
+  apk add --update --no-cache make gcc libc-dev git
+
+RUN gem install bundler -v 1.17.3
+COPY Gemfile pact-message.gemspec $HOME/
+COPY lib/pact/message/version.rb $HOME/lib/pact/message/version.rb
+RUN bundle install --no-cache

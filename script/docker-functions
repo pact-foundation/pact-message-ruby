@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+export IMAGE=pact_message_ruby_bundle_base
+
+function docker_build_bundle_base() {
+  docker build . -f Dockerfile-bundle-base -t $IMAGE
+}
+
+function bundle_update_on_docker() {
+  rm -rf tmp/Gemfile.lock
+  docker run --rm -v ${PWD}/tmp:/tmp/bundle_update $IMAGE:latest sh -c "bundle update && cp Gemfile.lock /tmp/bundle_update"
+  mv tmp/Gemfile.lock .
+}
+
+function on_docker() {
+  docker run --rm -v ${PWD}:/app $IMAGE:latest sh -c "$@"
+}
+
+gem_version() {
+  on_docker "bundle exec ruby -e \"require 'bump'; puts Bump::Bump.current\""
+}
