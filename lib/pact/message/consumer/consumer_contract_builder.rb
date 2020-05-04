@@ -22,7 +22,7 @@ module Pact
         end
 
         def send_message
-          # TODO handle matchers
+          # TODO reify content string
           yield @contents_string if block_given?
         end
 
