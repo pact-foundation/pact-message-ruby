@@ -1,3 +1,4 @@
+require 'pact/reification'
 module Pact
   class ConsumerContract
     class Message
@@ -15,10 +16,18 @@ module Pact
         end
 
         def to_s
-          if @contents.is_a?(Hash) || @contents.is_a?(Array)
-            @contents.to_json
+          if contents.is_a?(Hash) || contents.is_a?(Array)
+            contents.to_json
           else
-            @contents.to_s
+            contents.to_s
+          end
+        end
+
+        def reified_contents_string
+          if contents.is_a?(Hash) || contents.is_a?(Array)
+            Pact::Reification.from_term(contents).to_json
+          else
+            Pact::Reification.from_term(contents).to_s
           end
         end
 

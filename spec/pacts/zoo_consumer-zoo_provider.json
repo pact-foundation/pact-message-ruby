@@ -31,6 +31,9 @@
       },
       "matchingRules": {
         "body": {
+          "$.name": {
+            "match": "type"
+          }
         }
       },
       "metaData": {

@@ -1,7 +1,10 @@
 require "pact/message/consumer/rspec"
 require "fileutils"
+require "pact/helpers"
 
 RSpec.describe "creating a message pact" do
+
+  include Pact::Helpers
 
   ZOO_PACT_FILE_PATH = "spec/pacts/zoo_consumer-zoo_provider.json"
 
@@ -40,7 +43,7 @@ RSpec.describe "creating a message pact" do
       .with_metadata(type: 'animal')
       .with_content(name: "Mary")
 
-    alice_producer.send_message do | content_string |
+    alice_producer.send_message_string do | content_string |
       message_handler.call(content_string)
     end
 
@@ -51,9 +54,9 @@ RSpec.describe "creating a message pact" do
     alice_producer
       .given("there is an alligator named John")
       .is_expected_to_send("an alligator message")
-      .with_content(name: "John")
+      .with_content(name: like("John"))
 
-    alice_producer.send_message do | content_string |
+    alice_producer.send_message_string do | content_string |
       message_handler.call(content_string)
     end
 

@@ -21,12 +21,12 @@ module Pact
           interaction_builder.is_expected_to_send(provider_state)
         end
 
-        def send_message
-          # TODO reify content string
-          yield @contents_string if block_given?
+        def send_message_string
+          yield contents.reified_contents_string if block_given?
         end
 
         def handle_interaction_fully_defined(interaction)
+          @contents = interaction.contents
           @contents_string = interaction.contents.to_s
           @interactions << interaction
           @interaction_builder = nil
@@ -42,7 +42,7 @@ module Pact
         private
 
         attr_writer :interaction_builder
-        attr_accessor :consumer_name, :provider_name, :consumer_contract_details
+        attr_accessor :consumer_name, :provider_name, :consumer_contract_details, :contents
 
         def interaction_builder
           @interaction_builder ||=
