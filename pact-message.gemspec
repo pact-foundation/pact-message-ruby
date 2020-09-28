@@ -36,7 +36,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "pact-mock_service", "~> 3.1"
   spec.add_runtime_dependency "thor", "~> 0.20"
 
-  spec.add_development_dependency "bundler", "~> 1.17.3"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "pry-byebug"
