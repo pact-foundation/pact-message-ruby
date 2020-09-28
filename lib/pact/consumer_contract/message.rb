@@ -48,7 +48,7 @@ module Pact
           {
             description: description,
             provider_states: [{ name: provider_state }],
-            contents: contents.to_hash,
+            contents: contents.contents,
             metadata: metadata
           }
         end
