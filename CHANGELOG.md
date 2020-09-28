@@ -1,3 +1,17 @@
+<a name="v0.7.1"></a>
+### v0.7.1 (2020-09-28)
+
+
+#### Features
+
+* reify message when yielding	 ([d7c0a4a](/../../commit/d7c0a4a))
+
+
+#### Bug Fixes
+
+* fix bug in Message.to_hash	 ([e354cd2](/../../commit/e354cd2))
+
+
 <a name="v0.7.0"></a>
 ### v0.7.0 (2020-02-10)
 
