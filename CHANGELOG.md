@@ -1,3 +1,14 @@
+<a name="v0.9.0"></a>
+### v0.9.0 (2020-11-04)
+
+#### Features
+
+* allow pact dir to be configured	 ([f2f9626](/../../commit/f2f9626))
+* verify that each message has been yielded	 ([1d4d92c](/../../commit/1d4d92c))
+
+* **consumer**
+  * only update pact if test suite passes	 ([e99276d](/../../commit/e99276d))
+
 <a name="v0.8.0"></a>
 ### v0.8.0 (2020-09-28)
 
