@@ -22,7 +22,9 @@ module Pact
         end
 
         def send_message_string
-          yield contents.reified_contents_string if block_given?
+          if block_given?
+            yield contents.reified_contents_string
+          end
         end
 
         def handle_interaction_fully_defined(interaction)
@@ -30,8 +32,7 @@ module Pact
           @contents_string = interaction.contents.to_s
           @interactions << interaction
           @interaction_builder = nil
-          # TODO pull these from pact config
-          Pact::Message::Consumer::UpdatePact.call(interaction, "./spec/pacts", consumer_name, provider_name, "2.0.0")
+
         end
 
         def verify example_description
@@ -39,10 +40,14 @@ module Pact
           # TODO check that message was actually yielded
         end
 
+        def write_pact
+          Pact::Message::Consumer::UpdatePact.call(interactions, "./spec/pacts", consumer_name, provider_name, "2.0.0")
+        end
+
         private
 
         attr_writer :interaction_builder
-        attr_accessor :consumer_name, :provider_name, :consumer_contract_details, :contents
+        attr_accessor :consumer_name, :provider_name, :consumer_contract_details, :contents, :interactions
 
         def interaction_builder
           @interaction_builder ||=

@@ -1,6 +1,6 @@
 require 'pact/message/consumer/consumer_contract_builder'
 require 'pact/message/consumer/consumer_contract_builders'
-# require 'pact/consumer/world'
+require 'pact/message/consumer/world'
 
 module Pact
   module Message
@@ -58,7 +58,8 @@ module Pact
             Pact::Message::Consumer::ConsumerContractBuilders.send(:define_method, @name.to_sym) do
               consumer_contract_builder
             end
-            # Pact.consumer_world.add_consumer_contract_builder consumer_contract_builder
+
+            Pact::Message.consumer_world.add_consumer_contract_builder consumer_contract_builder
           end
         end
       end

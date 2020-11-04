@@ -6,23 +6,23 @@ module Pact
     module Consumer
       class UpdatePact
 
-        def initialize message, pact_dir, consumer_name, provider_name, pact_specification_version
+        def initialize messages, pact_dir, consumer_name, provider_name, pact_specification_version
           @pact_dir = pact_dir
-          @message = message
+          @messages = messages
           @consumer_name = consumer_name
           @provider_name = provider_name
           @pact_specification_version = pact_specification_version
         end
 
-        def self.call(message, pact_dir, consumer_name, provider_name, pact_specification_version)
-          new(message, pact_dir, consumer_name, provider_name, pact_specification_version).call
+        def self.call(messages, pact_dir, consumer_name, provider_name, pact_specification_version)
+          new(messages, pact_dir, consumer_name, provider_name, pact_specification_version).call
         end
 
         def call
           details = {
             consumer: {name: consumer_name},
             provider: {name: provider_name},
-            interactions: [message],
+            interactions: [*messages],
             pactfile_write_mode: :update,
             pact_dir: pact_dir,
             pact_specification_version: pact_specification_version,
@@ -36,7 +36,7 @@ module Pact
 
         private
 
-        attr_reader :message, :pact_dir, :consumer_name, :provider_name, :pact_specification_version
+        attr_reader :messages, :pact_dir, :consumer_name, :provider_name, :pact_specification_version
       end
     end
   end

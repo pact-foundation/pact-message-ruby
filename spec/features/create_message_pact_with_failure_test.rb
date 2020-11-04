@@ -33,22 +33,17 @@ RSpec.describe "creating a message pact with a failure" do
 
   let(:message_handler) { MessageHandler.new }
 
-  it "allows a consumer to test that it can handle a message example correctly", pact: :message, pending: true do
+  it "allows a consumer to test that it can handle a message example correctly", pact: :message do
     bar_producer
       .given("there is an alligator named Mary")
       .is_expected_to_send("an alligator message")
       .with_metadata(type: 'animal')
       .with_content(name: "Mary")
 
-    bar_producer.send_message do | content_string |
+    bar_producer.send_message_string do | content_string |
       message_handler.call(content_string)
     end
 
     expect(message_handler.output_stream.string).to eq ("Hello The Wrong Name")
-  end
-
-
-  it "merges the message into the pact file", pending: true do
-    expect(File.exist?(FOO_BAR_PACT_FILE_PATH)).to be false
   end
 end

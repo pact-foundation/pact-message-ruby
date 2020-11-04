@@ -62,11 +62,4 @@ RSpec.describe "creating a message pact" do
 
     expect(message_handler.output_stream.string).to eq ("Hello John")
   end
-
-  it "merges the message into the pact file" do
-    pact_hash = JSON.parse(File.read(ZOO_PACT_FILE_PATH), symbolize_names: true)
-    expect(pact_hash[:consumer][:name]).to eq "Zoo Consumer"
-    expect(pact_hash[:provider][:name]).to eq "Zoo Provider"
-    expect(pact_hash[:messages].size).to eq 2
-  end
 end

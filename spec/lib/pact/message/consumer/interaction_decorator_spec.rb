@@ -11,7 +11,7 @@ module Pact
               provider_states: [double('Pact::ProviderState', as_json: provider_state_json)],
               contents: double('Pact::ConsumerContract::Message::Contents', contents: contents_object),
               metadata: { content_type: 'foo/bar' }
-              )
+            )
           end
           let(:contents_object) do
             { 'foo' => Pact.like('bar') }
