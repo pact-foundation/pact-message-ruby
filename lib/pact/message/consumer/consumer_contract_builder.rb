@@ -11,6 +11,8 @@ module Pact
           @interaction_builder = nil
           @consumer_name = attributes[:consumer_name]
           @provider_name = attributes[:provider_name]
+          @pact_specification_version = attributes[:pact_specification_version]
+          @pact_dir = attributes[:pact_dir]
           @interactions = []
           @yielded_interaction = false
         end
@@ -68,12 +70,12 @@ module Pact
         end
 
         def write_pact
-          Pact::Message::Consumer::WritePact.call(interactions, "./spec/pacts", consumer_name, provider_name, "2.0.0", :overwrite)
+          Pact::Message::Consumer::WritePact.call(interactions, pact_dir, consumer_name, provider_name, pact_specification_version, :overwrite)
         end
 
         private
 
-        attr_accessor :consumer_name, :provider_name, :consumer_contract_details, :contents, :interactions
+        attr_accessor :consumer_name, :provider_name, :consumer_contract_details, :contents, :interactions, :pact_specification_version, :pact_dir
 
         def interaction_builder?
           !!@interaction_builder

@@ -40,11 +40,11 @@ module Pact
 
           def create_consumer_contract_builder
             consumer_contract_builder_fields = {
-              :consumer_name => consumer_name,
-              :provider_name => provider_name,
+              consumer_name: consumer_name,
+              provider_name: provider_name,
+              pact_specification_version: pact_specification_version,
+              pact_dir: Pact.configuration.pact_dir
             }
-              # :pactfile_write_mode => Pact.configuration.pactfile_write_mode,
-              # :pact_dir => Pact.configuration.pact_dir
             Pact::Message::Consumer::ConsumerContractBuilder.new consumer_contract_builder_fields
           end
 
