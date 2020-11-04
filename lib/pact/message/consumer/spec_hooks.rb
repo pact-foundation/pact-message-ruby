@@ -6,6 +6,7 @@ module Pact
       class SpecHooks
         def before_each example_description
           Pact::Message.consumer_world.register_pact_example_ran
+          Pact::Message.consumer_world.consumer_contract_builders.each(&:reset)
         end
 
         def after_each example_description

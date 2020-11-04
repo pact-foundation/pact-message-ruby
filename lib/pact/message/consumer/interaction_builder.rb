@@ -17,13 +17,17 @@ module Pact
           self
         end
 
-        def given provider_state
-          @interaction.provider_state = provider_state.nil? ? nil : provider_state.to_s
+        def given name, params = {}
+          if name
+            @interaction.provider_states << Pact::ProviderState.new(name, params)
+          end
           self
         end
 
+        alias_method :and, :given
+
         def with_metadata(object)
-          # TODO implement this
+          interaction.metadata = object
           self
         end
 

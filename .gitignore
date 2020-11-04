@@ -12,3 +12,4 @@ spec/pacts/zoo_consumer-zoo_provider.json
 
 # rspec failure tracking
 .rspec_status
+spec/pacts/

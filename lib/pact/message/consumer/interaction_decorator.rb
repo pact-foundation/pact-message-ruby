@@ -17,7 +17,9 @@ module Pact
           hash[:providerStates] = provider_states
           hash[:contents] = extract_contents
           hash[:matchingRules] = extract_matching_rules
-          hash[:metaData] = message.metadata || {}
+          if message.metadata
+            hash[:metaData] = message.metadata
+          end
           fix_all_the_things hash
         end
 
@@ -42,9 +44,14 @@ module Pact
         end
 
         def extract_matching_rules
-          {
-            body: Pact::MatchingRules.extract(message.contents.contents, pact_specification_version: pact_specification_version)
-          }
+          body_matching_rules = Pact::MatchingRules.extract(message.contents.contents, pact_specification_version: pact_specification_version)
+          if body_matching_rules.any?
+            {
+              body: body_matching_rules
+            }
+          else
+            {}
+          end
         end
 
         def pact_specification_version

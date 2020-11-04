@@ -1,5 +1,6 @@
 require 'pact/message/consumer/interaction_builder'
-require 'pact/message/consumer/update_pact'
+require 'pact/message/consumer/write_pact'
+require 'pact/errors'
 
 module Pact
   module Message
@@ -11,10 +12,16 @@ module Pact
           @consumer_name = attributes[:consumer_name]
           @provider_name = attributes[:provider_name]
           @interactions = []
+          @yielded_interaction = false
         end
 
-        def given(provider_state)
-          interaction_builder.given(provider_state)
+        def reset
+          @interaction_builder = nil
+          @yielded_interaction = false
+        end
+
+        def given(provider_state, params = {})
+          interaction_builder.given(provider_state, params)
         end
 
         def is_expected_to_send(description)
@@ -22,32 +29,59 @@ module Pact
         end
 
         def send_message_string
-          if block_given?
-            yield contents.reified_contents_string
+          if interaction_builder?
+            if block_given?
+              @yielded_interaction = true
+              yield interaction_builder.interaction.contents.reified_contents_string
+            end
+          else
+            raise Pact::Error.new("No message expectation has been defined")
+          end
+        end
+
+        def send_message_hash
+          if interaction_builder?
+            if block_given?
+              @yielded_interaction = true
+              yield interaction_builder.interaction.contents.reified_contents_hash
+            end
+          else
+            raise Pact::Error.new("No message expectation has been defined")
           end
         end
 
         def handle_interaction_fully_defined(interaction)
           @contents = interaction.contents
           @contents_string = interaction.contents.to_s
-          @interactions << interaction
-          @interaction_builder = nil
-
         end
 
         def verify example_description
-          #
-          # TODO check that message was actually yielded
+          # There may be multiple message providers defined, and not every one of them
+          # has to define a message for every test.
+          if interaction_builder?
+            if yielded_interaction?
+              interactions << interaction_builder.interaction
+            else
+              raise Pact::Error.new("`send_message_string` was not called for message \"#{interaction_builder.interaction.description}\"")
+            end
+          end
         end
 
         def write_pact
-          Pact::Message::Consumer::UpdatePact.call(interactions, "./spec/pacts", consumer_name, provider_name, "2.0.0")
+          Pact::Message::Consumer::WritePact.call(interactions, "./spec/pacts", consumer_name, provider_name, "2.0.0", :overwrite)
         end
 
         private
 
-        attr_writer :interaction_builder
         attr_accessor :consumer_name, :provider_name, :consumer_contract_details, :contents, :interactions
+
+        def interaction_builder?
+          !!@interaction_builder
+        end
+
+        def yielded_interaction?
+          @yielded_interaction
+        end
 
         def interaction_builder
           @interaction_builder ||=

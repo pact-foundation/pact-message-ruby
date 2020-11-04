@@ -11,11 +11,17 @@ RSpec::Core::RakeTask.new(:fail) do | task |
 end
 
 task :pass_writes_pact_file do
+  require 'json'
   puts "Ensuring that pact file is written for successful test suites"
   FileUtils.rm_rf(ZOO_PACT_FILE_PATH)
   Rake::Task['pass'].execute
   if !File.exist?(ZOO_PACT_FILE_PATH)
     raise "Expected pact file to be written at #{ZOO_PACT_FILE_PATH}"
+  end
+
+  pact_hash = JSON.parse(File.read(ZOO_PACT_FILE_PATH))
+  if pact_hash['messages'].size < 2
+    raise "Expected pact file to contain more than 1 message"
   end
 end
 

@@ -31,6 +31,10 @@ module Pact
           end
         end
 
+        def reified_contents_hash
+          Pact::Reification.from_term(contents)
+        end
+
         def contents
           @contents
         end
