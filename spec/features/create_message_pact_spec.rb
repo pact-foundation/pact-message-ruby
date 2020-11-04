@@ -11,13 +11,13 @@ RSpec.describe "creating a message pact" do
   before(:all) do
     Pact.message_consumer "Zoo Consumer" do
       has_pact_with "Zoo Provider" do
-        builder :alice_producer do
+        mock_provider :alice_producer do
           pact_specification_version '2'
         end
       end
 
       has_pact_with "Wiffle Provider" do
-        builder :wiffle_producer do
+        mock_provider :wiffle_producer do
           pact_specification_version '2'
         end
       end

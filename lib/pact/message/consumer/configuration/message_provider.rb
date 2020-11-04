@@ -18,8 +18,12 @@ module Pact
           end
 
           dsl do
-            def builder builder_name, &block
+            def mock_provider(builder_name, &block)
               self.builder = MessageBuilder.build(builder_name, consumer_name, name, &block)
+            end
+
+            def builder(builder_name, &block)
+              expectation_builder(builder_name, &block)
             end
           end
 
