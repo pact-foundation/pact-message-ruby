@@ -1,3 +1,10 @@
+<a name="v0.10.0"></a>
+### v0.10.0 (2021-01-22)
+
+#### Features
+
+* allow pact-message update to receive JSON via the standard input	 ([5cbb664](/../../commit/5cbb664))
+
 <a name="v0.9.0"></a>
 ### v0.9.0 (2020-11-04)
 
