@@ -12,9 +12,9 @@ else
   increment="null"
 fi
 
-repository_slug=$(git remote get-url $(git remote show) | cut -d':' -f2 | sed 's/\.git//')
+repository_slug=$(git remote get-url origin | cut -d':' -f2 | sed 's/\.git//')
 
-output=$(curl -v -X POST https://api.github.com/repos/${repository_slug}/dispatches \
+output=$(curl -v https://api.github.com/repos/${repository_slug}/dispatches \
       -H 'Accept: application/vnd.github.everest-preview+json' \
       -H "Authorization: Bearer $GITHUB_ACCESS_TOKEN_FOR_PF_RELEASES" \
       -d "{\"event_type\": \"release-triggered\", \"client_payload\": {\"increment\": ${increment}}}" 2>&1)
