@@ -16,4 +16,12 @@ RSpec.describe "the CLI" do
     expect(exit_status).to eq 0
     expect(File.exist?(CLI_SPEC_PACT_FILE_PATH)).to be true
   end
+
+  it "creates a pact file with a message from the standard input" do
+    output = `echo '#{json}' | bundle exec bin/pact-message update --consumer Foo --provider Bar --pact-dir ./tmp`
+    exit_status = $?
+    puts output if exit_status != 0
+    expect(exit_status).to eq 0
+    expect(File.exist?(CLI_SPEC_PACT_FILE_PATH)).to be true
+  end
 end
