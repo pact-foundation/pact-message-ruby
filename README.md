@@ -94,7 +94,56 @@ Provider states work the same way for Message Pact as they do for HTTP Pact. Ple
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### Setup
+
+After checking out the repo, run the following to install dependencies.
+
+```bash
+$ bundle exec bin/setup
+
+bundle install
+\+ bundle install
+...
+Bundle complete! 6 Gemfile dependencies, 29 gems now installed.
+Use `bundle info [gemname]` to see where a bundled gem is installed.
+
+Do any other automated setup that you need to do here
+```
+
+### Tests
+
+Run the following command to run the tests.
+
+```bash
+$ bundle exec rake spec
+
+the CLI
+  creates a pact file with the given message
+  creates a pact file with a message from the standard input
+...
+Finished in 0.50883 seconds (files took 0.15053 seconds to load)
+26 examples, 0 failures, 2 pending
+```
+
+### Interactive Prompt
+
+You can run the following command for an for an interactive prompt that will allow you to experiment.
+
+```bash
+$ bundle exec bin/console
+2.6.6 :001 >
+```
+
+To execute commands on the CLI run the following command followed by command line arguments as you would with the published version.
+
+```bash
+$ bundle exec bin/pact-message
+Commands:
+  pact-message help [COMMAND]                                                                   # Describe available commands or one specific command
+  pact-message reify                                                                            # Take a JSON document with embedded pact matchers and return...
+  pact-message update MESSAGE_JSON --consumer=CONSUMER --pact-dir=PACT_DIR --provider=PROVIDER  # Update/create a pact. If MESSAGE_JSON is omitted or '-', it...
+  pact-message version                                                                          # Show the pact-message gem version
+```
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
