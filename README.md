@@ -134,7 +134,7 @@ $ bundle exec bin/console
 2.6.6 :001 >
 ```
 
-To execute commands on the CLI run the following command followed by command line arguments is you would with the published version.
+To execute commands on the CLI run the following command followed by command line arguments as you would with the published version.
 
 ```bash
 $ bundle exec bin/pact-message
