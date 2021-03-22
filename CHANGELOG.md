@@ -1,3 +1,10 @@
+<a name="v0.11.0"></a>
+### v0.11.0 (2021-03-22)
+
+#### Features
+
+* update thor dependancy	 ([87a5f64](/../../commit/87a5f64))
+
 <a name="v0.10.0"></a>
 ### v0.10.0 (2021-01-22)
 
