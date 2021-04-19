@@ -31,6 +31,7 @@ The key to using Message Pact is to completely separate the business logic that 
 ### Consumer
 
 Not finished yet as nobody has asked for it. Ping @Beth Skurrie on slack.pact.io if you'd like use this.
+Update: Done but not documented yet. See https://github.com/pact-foundation/pact-message-ruby/blob/master/spec/features/create_message_pact_spec.rb#L78 for an example.
 
 ### Provider
 
