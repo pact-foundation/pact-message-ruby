@@ -1,3 +1,10 @@
+<a name="v0.11.1"></a>
+### v0.11.1 (2021-04-20)
+
+#### Bug Fixes
+
+* JSON load message document so that the Ruby objects are created properly	 ([2bab66c](/../../commit/2bab66c))
+
 <a name="v0.11.0"></a>
 ### v0.11.0 (2021-03-22)
 
