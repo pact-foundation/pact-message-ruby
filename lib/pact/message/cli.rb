@@ -39,6 +39,12 @@ module Pact
         require 'pact/message/version.rb'
         puts Pact::Message::VERSION
       end
+
+      no_commands do
+        def self.exit_on_failure?
+          true
+        end
+      end
     end
   end
 end
