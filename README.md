@@ -28,6 +28,8 @@ Or install it yourself as:
 
 The key to using Message Pact is to completely separate the business logic that creates the message from the transmission protocol (eg. Kafka, Websockets, Lambda). This allows you to write a contract for the message contents, no matter how it is communicated.
 
+See the general [Message Pact docs](https://docs.pact.io/getting_started/how_pact_works#non-http-testing-message-pact) for more information.
+
 ### Consumer
 
 Not finished yet as nobody has asked for it. Ping @Beth Skurrie on slack.pact.io if you'd like use this.
