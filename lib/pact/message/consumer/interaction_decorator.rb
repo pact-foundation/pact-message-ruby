@@ -13,7 +13,7 @@ module Pact
         end
 
         def as_json options = {}
-          hash = { :description => message.description }
+          hash = { :description => message.descriptions.join(';') }
           hash[:providerStates] = provider_states
           hash[:contents] = extract_contents
           hash[:matchingRules] = extract_matching_rules
@@ -36,7 +36,9 @@ module Pact
         end
 
         def extract_contents
-          Pact::Reification.from_term(message.contents.contents)
+          message.events.map do |message_content|
+            Pact::Reification.from_term(message_content.contents)
+          end
         end
 
         def provider_states

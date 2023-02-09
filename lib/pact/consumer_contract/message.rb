@@ -13,13 +13,15 @@ module Pact
       include Pact::ActiveSupportSupport
       include Pact::SymbolizeKeys
 
-        attr_accessor :description, :contents, :provider_state, :provider_states, :metadata, :_id, :index
+        attr_accessor :description, :descriptions, :contents, :events, :provider_state, :provider_states, :metadata, :_id, :index
 
         def initialize attributes = {}
           @description = attributes[:description]
+          @descriptions = []
           @provider_state = attributes[:provider_state] || attributes[:providerState]
           @provider_states = attributes[:provider_states] || []
           @contents = attributes[:contents]
+          @events = []
           @metadata = attributes[:metadata]
           @_id = attributes[:_id]
           @index = attributes[:index]
