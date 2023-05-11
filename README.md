@@ -63,7 +63,7 @@ Pact.message_provider "MyMessageProvider" do
   builder do |message_description|
     #... code that accepts a message description and returns 
     # a message hash that should match what is expected in the pact
-  do
+  end
 end
 
 ```
@@ -86,7 +86,7 @@ CONFIG = {
 Pact.message_provider "SomeProvider" do
   builder do |description|
     CONFIG[description].call
-  do
+  end
 end
 
 ```
