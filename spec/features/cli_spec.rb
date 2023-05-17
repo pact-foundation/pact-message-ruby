@@ -3,7 +3,7 @@
 require 'fileutils'
 require 'English'
 
-RSpec.describe 'the CLI' do
+RSpec.describe 'the CLI', skip_windows: true do
   CLI_SPEC_PACT_FILE_PATH = './tmp/foo-bar.json'.freeze
 
   let(:json) { File.read('spec/fixtures/message-v1-format.json') }
