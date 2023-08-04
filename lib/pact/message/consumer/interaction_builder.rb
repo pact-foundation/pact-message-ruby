@@ -13,6 +13,7 @@ module Pact
         end
 
         def is_expected_to_send description
+          @interaction.descriptions << description
           @interaction.description = description
           self
         end
@@ -32,7 +33,9 @@ module Pact
         end
 
         def with_content(object)
-          interaction.contents = Pact::Message::Contents.from_hash(object)
+          message_content = Pact::Message::Contents.from_hash(object)
+          interaction.events << message_content
+          interaction.contents = message_content
           @callback.call interaction
           self
         end
