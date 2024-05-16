@@ -1,5 +1,6 @@
 require "pact/message/consumer/rspec"
 require "fileutils"
+require "ostruct"
 
 RSpec.describe "creating a message pact with a failure" do
 
