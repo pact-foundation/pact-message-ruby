@@ -1,6 +1,7 @@
 require "pact/message/consumer/rspec"
 require "fileutils"
 require "pact/helpers"
+require "ostruct"
 
 RSpec.describe "creating a message pact" do
 
