@@ -1,4 +1,4 @@
-FROM ruby:4.0.8-alpine@sha256:e10c6cbfa9c0adf740c3c1d4d142d5b833b7901536f9968ce5925a6f3f6d0c14
+FROM ruby:4.0.9-alpine@sha256:d0c5befc0864d31c6219321c8d79de2941d1bc31c41505d9c9289c6192c36d60
 
 # Installation path
 ENV HOME=/app
